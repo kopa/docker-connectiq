@@ -1,11 +1,3 @@
-
-ifdef::env-github[]
-image:https://github.com/kalemena/docker-connectiq/workflows/Pipeline/badge.svg[GitHub Build]
-image:https://img.shields.io/docker/v/kalemena/connectiq[Docker Hub, link=https://hub.docker.com/r/kalemena/connectiq/tags]
-image:https://img.shields.io/docker/pulls/kalemena/connectiq.svg[Docker Hub, link=https://hub.docker.com/r/kalemena/connectiq/tags]
-image:https://img.shields.io/docker/image-size/kalemena/connectiq[Docker Hub, link=https://hub.docker.com/r/kalemena/connectiq/tags]
-endif::[]
-
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
@@ -16,78 +8,39 @@ endif::[]
 
 = docker-connectiq
 
-Installation of Garmin Tools Connect IQ SDK and Eclipse IDE plugins as a Docker container.
+Docker container with Garmin Connect IQ SDK Manager + Eclipse IDE with
+respective plugins.
 
-Docker image is available through docker hub as link:https://hub.docker.com/r/kalemena/connectiq[kalemena/connectiq]
+Based on link:https://github.com/kalemena/docker-connectiq[]. I updated the
+container for the new Garmin SDK Manager, new Eclipse, and adjusted a few
+things to my liking.
 
 == Usage
 
-=== Docker Image pull / build / run
+=== Docker Image Build
 
 ====
-    $ make pull
-    or
     $ make build
-    or
-    $ make console
 ====
+
+=== Docker Image Run
+
+Pass your workspace directory to the run script:
+
+====
+    $ ./run.bash WORKSPACE
+====
+
+First, run `sdkmanager` to setup SDKs and Devices. The SDK Manager stores its
+files in */home/developer/.Garmin*, in case you need the SDK commands.
+Afterwards, start Eclipse with `eclipse` and create a developer key (explained
+link:https://developer.garmin.com/connect-iq/connect-iq-basics/getting-started/[here]).
 
 [TIP]
 ====
-Command lines *run.sh*, *make console*, or *make eclipse* will map current folder into */workspace* of the container instance. +
-For persistence reasons, any file or created project should be done in */workspace* folder.
-====
-
-=== Generate a certificate
-
-====
-    $ make console
-    $$ cd /workspace
-    $$ ./generate-certificate.sh    
-====
-
-=== Building app in Console
-
-====
-    $ make console
-    $$ cd /opt/ciq/samples/Drawable/
-    $$ monkeyc -d vivoactive3 -f ./monkey.jungle -o drawable.prg -y ~/eclipse-workspace/developer_key.der
-    $$ connectiq &
-    $$ monkeydo drawable.prg vivoactive3
-
-.Result of above commands
-image:res/Drawable.png[Sample app Drawable]
-====
-
-=== Building app in Eclipse IDE
-
-====
-    $ make eclipse
-
-.Menu File => Import => Existing Projects into Workspace
-image:res/eclipse-import-project.png[]
-
-.Imported Project
-image:res/eclipse-Drawable-project.png[]
-
-.Launch Configuration
-image:res/eclipse-launch-config.png[]
-
-.Result of above commands
-image:res/Drawable.png[Sample app Drawable]
-====
-
-=== Authoring app in Eclipse IDE
-
-====
-    $ make eclipse
-
-* In Eclipse, Menu File => New => Project => Connect IQ Project
-* Make sure to create project under */workspace/...* hierarchy
-* Then select *Widget* and *Next*
-* Then for example, *Vivoactive 3* as target
-* Then for example, *Sensor* or *Sensor History* as features
-* Once project is loaded, you can run like previous example to see the *monkey* default app display
+For persistence reasons, any file or created project should be done in
+*/home/developer/workspace* (mapped to dir that was supplied via `WORKSPACE`
+arg on host) or */home/developer/.Garmin* (mapped to `~/.Garmin` on host).
 ====
 
 === Upload to Watch

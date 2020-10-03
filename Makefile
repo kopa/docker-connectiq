@@ -1,20 +1,12 @@
 
 # Check at https://developer.garmin.com/downloads/connect-iq/sdks/sdks.xml
-VERSION := 3.1.9-2020-06-24-1cc9d3a70
+VERSION := 3.2
 
-all: build 
-
-pull:
-	docker pull kalemena/connectiq:$(VERSION)
+all: build
 
 build:
 	@echo "+++ Building docker image +++"
 	docker pull ubuntu:18.04
-	docker build --build-arg VERSION=$(VERSION) -t kalemena/connectiq:$(VERSION) .
-	docker tag kalemena/connectiq:$(VERSION) kalemena/connectiq:latest
+	docker build --build-arg VERSION=$(VERSION) -t nicolasgross/connectiq:$(VERSION) .
+	docker tag nicolasgross/connectiq:$(VERSION) nicolasgross/connectiq:latest
 
-console:
-	bash ./run.sh
-
-eclipse:
-	COMMAND=/opt/eclipse/eclipse bash ./run.sh
