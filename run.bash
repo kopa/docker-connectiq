@@ -23,4 +23,4 @@ docker run -it --rm \
     --ipc host \
     -u $MAP_UID:$MAP_GID \
     --privileged \
-    nicolasgross/connectiq:latest /bin/bash
+    kopa/connectiq:latest /bin/bash

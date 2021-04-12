@@ -7,6 +7,8 @@ all: build
 build:
 	@echo "+++ Building docker image +++"
 	docker pull ubuntu:18.04
-	docker build --build-arg VERSION=$(VERSION) -t nicolasgross/connectiq:$(VERSION) .
-	docker tag nicolasgross/connectiq:$(VERSION) nicolasgross/connectiq:latest
+	docker build --build-arg VERSION=$(VERSION) -t kopa/connectiq:$(VERSION) .
+	docker tag kopa/connectiq:$(VERSION) kopa/connectiq:latest
 
+run:
+	./run.bash ~/dev/workspace

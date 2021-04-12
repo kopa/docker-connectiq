@@ -11,7 +11,7 @@ endif::[]
 Docker container with Garmin Connect IQ SDK Manager + Eclipse IDE with
 respective plugins.
 
-Based on link:https://github.com/kalemena/docker-connectiq[]. I updated the
+Based on link:https://github.com/nicolasgross/docker-connectiq[] and link:https://github.com/kalemena/docker-connectiq[]. I updated the
 container for the new Garmin SDK Manager, new Eclipse, and adjusted a few
 things to my liking.
 
